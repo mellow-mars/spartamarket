@@ -31,3 +31,19 @@ def post_detail(request, pk):
     post = get_object_or_404(Posts, pk=pk)
     context = {'post': post}
     return render(request, 'products/post_detail.html', context)
+
+
+def post_update(request, pk):
+    post = Posts.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            article = form.save()
+            return redirect('products:post_detail', post.pk)
+    else:
+        form = PostForm(instance=post)
+        context = {
+            'form': form,
+            'post': post,
+        }
+    return render(request, 'products/post_update.html', context)
