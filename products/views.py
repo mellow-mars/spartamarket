@@ -6,7 +6,11 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    return render(request, 'products/index.html')
+    posts = Posts.objects.all()
+    context = {
+        'posts': posts,
+    }
+    return render(request, 'products/index.html', context)
 
 
 @login_required
@@ -23,7 +27,7 @@ def create_post(request):
     context = {"form": form}
     return render(request, "products/create_post.html", context)
 
-def post_detail(request):
+def post_detail(request, pk):
     post = get_object_or_404(Posts, pk=pk)
-    context = {'ppst': post}
-    return render(request, 'posts/post_detail.html', context)
+    context = {'post': post}
+    return render(request, 'products/post_detail.html', context)
