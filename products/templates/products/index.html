@@ -11,6 +11,7 @@
     <h1>this is index</h1><br>
     <a href="{%url 'accounts:signup' %}"><button>회원가입</button></a>
     <a href="{%url 'accounts:login' %}"><button>로그인</button></a>
+    <a href="{%url 'products:create' %}"><button>글 쓰기</button></a>
     <form action="{% url 'accounts:logout' %}" method="POST">
         {% csrf_token %}
         <input type="submit" value="로그아웃">
