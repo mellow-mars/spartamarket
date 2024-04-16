@@ -1,1 +1,20 @@
-<h1>this is index</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body class= 'container'>
+    <h1>this is index</h1><br>
+    <a href="{%url 'accounts:signup' %}"><button>회원가입</button></a>
+    <a href="{%url 'accounts:login' %}"><button>로그인</button></a>
+    <form action="{% url 'accounts:logout' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="로그아웃">
+    </form>
+</body>
+
+</html>
