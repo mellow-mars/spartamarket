@@ -10,5 +10,9 @@
     <p>{{ post.content }}</p>
     <p>작성자: {{ post.user }}</p>
     <a href="{% url 'products:post_update' post.pk %}">수정하기</a>
+    <form action="{% url 'products:post_delete' post.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+    </form>
 </body>
 </html>
