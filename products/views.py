@@ -54,6 +54,7 @@ def post_update(request, pk):
         }
     return render(request, 'products/post_update.html', context)
 
+
 @require_POST
 def post_delete(request, pk):
     if request.method == "POST":
