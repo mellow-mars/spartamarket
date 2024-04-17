@@ -6,6 +6,7 @@ from accounts.models import User
 
 class Posts(models.Model):
     title = models.CharField(max_length=50)
+    price = models.IntegerField()
     content = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -7,3 +7,9 @@ class PostForm(forms.ModelForm):
         model = Posts
         fields = "__all__"
         exclude = ['user']
+
+        labels = {
+            'title' : '상품명',
+            'content' : '상품 설명',
+            'price' : '가격',
+        }
