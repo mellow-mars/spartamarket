@@ -1,3 +1,4 @@
+from arrow import get
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import PostForm
 from .models import Posts
@@ -62,3 +63,14 @@ def post_delete(request, pk):
         article.delete()
         return redirect("index")
     return redirect("products:post_detail", pk)
+
+@require_POST
+def post_like(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Posts, pk=pk)
+        if post.like_users.filter(pk=request.user.pk).exists():
+            post.like_users.remove(request.user)
+        else:
+            post.like_users.add(request.user)
+        return redirect('index')
+    return redirect('accounts:login')

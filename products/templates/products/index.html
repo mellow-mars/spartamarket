@@ -4,18 +4,27 @@
 <a href="{% url 'products:create' %}"><button>글 쓰기</button></a>
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for post in posts %}
-    
     <div class="col">
         <div class="card">
-        {% if post.image %}
-            <img src="{{ post.image.url }}" class="card-img-top" alt=>
-        {% else %}
-            <img src="{% static 'images/product_default.png' %}" class="card-img-top" alt=>
-        {% endif %}
-        <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-        <p class="card-text">{{ post.content }}</p>
-        </div>
+            {% if post.image %}
+            <a href="{% url 'products:post_detail' post.pk %}"><img src="{{ post.image.url }}" class="card-img-top"></a>
+            {% else %}
+            <a href="{% url 'products:post_detail' post.pk %}"><img src="{% static 'images/product_default.png' %}"
+                    class="card-img-top"></a>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'products:post_detail' post.pk %}">{{ post.title }}</a></h5>
+                <p class="card-text">{{ post.content }}</p>
+                <form action="{% url 'products:post_like' post.pk%}" method="POST">
+                    {% csrf_token %}
+                    {% if request.user in post.like_users.all %}
+                    <input type="submit" value='안좋아요'>
+                    {% else %}
+                    <input type="submit" value='좋아요'>
+                    {% endif %}
+                    <p>{{ post.like_users.count }}</p>
+                </form>
+            </div>
         </div>
     </div>
     {% endfor %}

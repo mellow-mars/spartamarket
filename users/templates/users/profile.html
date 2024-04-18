@@ -2,10 +2,44 @@
 {% load static %}
 
 {% block content %}
-    <p>안녕하세요</p>
-    {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}">
-    {% else %}
-        <img src="{% static 'images/user_default.png' %}">
-    {% endif %}
+{% if profile.profile_picture %}
+<img src="{{ profile.profile_picture.url }}">
+{% else %}
+<img src="{% static 'images/user_default.png' %}">
+{% endif %}
+<h3>{{ profile.username }}</h3>
+<p>팔로잉:{{profile.followings.count}} 팔로어:{{profile.followers.count}}</p>
+{{ post.like_users.count }}
+{% if request.user != profile %}
+    <form action="{% url 'users:follower' profile.username %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in profile.followers.all %}
+        <button type="submit">언팔로우</button>
+        {% else %}
+        <button type="submit">팔로우</button>
+        {% endif %}
+    </form>
+{% endif %}
+
+<h3>찜한 목록</h3>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for post in posts %}
+    <div class="col">
+        <div class="card">
+            {% if post.image %}
+            <a href="{% url 'products:post_detail' post.pk %}"><img src="{{ post.image.url }}" class="card-img-top"></a>
+            {% else %}
+            <a href="{% url 'products:post_detail' post.pk %}"><img src="{% static 'images/product_default.png' %}"
+                    class="card-img-top"></a>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'products:post_detail' post.pk %}">{{ post.title }}</a></h5>
+                <p class="card-text">{{ post.content }}</p>
+                <p>좋아요: {{ post.like_users.count }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}

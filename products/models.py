@@ -10,7 +10,7 @@ class Posts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='posts')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    like_users = models.ManyToManyField(User,related_name='like_articles')
+    like_users = models.ManyToManyField(User,related_name='like_posts')
 
 
 class HashTags(models.Model):
