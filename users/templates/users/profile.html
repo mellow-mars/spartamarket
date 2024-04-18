@@ -4,8 +4,8 @@
 {% block content %}
     <p>안녕하세요</p>
     {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}">]\
+        <img src="{{ profile.profile_picture.url }}">
     {% else %}
-        <img src="{% static 'images/user_profile.png' %}" alt="">
+        <img src="{% static 'images/user_default.png' %}">
     {% endif %}
 {% endblock content %}

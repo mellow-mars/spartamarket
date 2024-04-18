@@ -1,4 +1,6 @@
+{% load static %}
 {% load humanize %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +10,11 @@
 <body>
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
+    {% if post.image %}
+        <img src="{{ post.image.url }}">
+    {% else %}
+        <img src="{% static 'images/product_default.png' %}">    
+    {% endif %}
     <p>가격: {{ post.price|intcomma }}원</p>
     <p>작성자: {{ post.user }}</p>
     <p>작성일: {{ post.updated_at|date:'Y/m/d H:i' }}</p>
