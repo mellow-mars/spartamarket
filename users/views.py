@@ -12,6 +12,7 @@ def profile(request, username):
     context = {
         'profile': profile,
         'posts' : posts,
+        'username': username,
     }
     return render(request, 'users/profile.html', context)
 

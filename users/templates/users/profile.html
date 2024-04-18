@@ -20,9 +20,11 @@
         {% endif %}
     </form>
 {% endif %}
+{% if request.user == profile %}
+    <a href="{% url 'accounts:update' request.user %}">회원정보수정</a>
+{% endif %}
 
 <h3>찜한 목록</h3>
-
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for post in posts %}
     <div class="col">

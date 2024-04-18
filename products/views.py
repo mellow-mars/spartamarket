@@ -1,11 +1,8 @@
-from arrow import get
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import PostForm
 from .models import Posts
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods, require_POST, require_GET
-
-# Create your views here.
 
 
 @require_GET
@@ -43,7 +40,7 @@ def post_detail(request, pk):
 def post_update(request, pk):
     post = Posts.objects.get(pk=pk)
     if request.method == 'POST':
-        form = PostForm(request.POST,request.FILES, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
             return redirect('products:post_detail', post.pk)
@@ -63,6 +60,7 @@ def post_delete(request, pk):
         article.delete()
         return redirect("index")
     return redirect("products:post_detail", pk)
+
 
 @require_POST
 def post_like(request, pk):

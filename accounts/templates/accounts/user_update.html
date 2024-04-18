@@ -1,0 +1,6 @@
+<h1>회원가입</h1>
+<form action="{% url 'accounts:update' request.user %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">회원정보수정</button>
+</form>
