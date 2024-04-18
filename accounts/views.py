@@ -7,10 +7,10 @@ from django.views.decorators.http import require_POST,require_http_methods
 # Create your views here.
 
 
-# @require_http_methods(["GET", "POST"])
+@require_http_methods(["GET", "POST"])
 def signup(request):
     if request.method == "POST":
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return redirect("index")
@@ -19,7 +19,8 @@ def signup(request):
     context = {"form": form}
     return render(request, "accounts/signup.html", context)
 
-# @require_POST()
+
+@require_http_methods(["GET", "POST"])
 def login(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -33,7 +34,7 @@ def login(request):
     return render(request, "accounts/login.html", context)
 
 
-# @require_POST()
+@require_POST
 def logout(request):
     if request.method == "POST":
         auth_logout(request)
