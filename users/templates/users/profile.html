@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <p>안녕하세요</p>
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}">]\
+    {% else %}
+        <img src="{% static 'images/user_profile.png' %}" alt="">
+    {% endif %}
+{% endblock content %}
