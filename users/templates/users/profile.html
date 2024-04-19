@@ -9,7 +9,6 @@
 {% endif %}
 <h3>{{ profile.username }}</h3>
 <p>팔로잉:{{profile.followings.count}} 팔로어:{{profile.followers.count}}</p>
-{{ post.like_users.count }}
 {% if request.user != profile %}
     <form action="{% url 'users:follower' profile.username %}" method="POST">
         {% csrf_token %}
@@ -22,7 +21,36 @@
 {% endif %}
 {% if request.user == profile %}
     <a href="{% url 'accounts:update' request.user %}">회원정보수정</a>
+    <form action="{% url 'accounts:delete' request.user %}" method='POST'>
+        {% csrf_token %}
+        <input type="submit" value='회원탈퇴'>
+    </form>
+    <form action="{% url 'accounts:change_password' request.user %}" method='POST'>
+        {% csrf_token %}
+        <input type="submit" value='비밀번호 변경'>
+    </form>
 {% endif %}
+
+<h3>내가 등록한 상품</h3>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for post in my_posts %}
+    <div class="col">
+        <div class="card">
+            {% if post.image %}
+            <a href="{% url 'products:post_detail' post.pk %}"><img src="{{ post.image.url }}" class="card-img-top"></a>
+            {% else %}
+            <a href="{% url 'products:post_detail' post.pk %}"><img src="{% static 'images/product_default.png' %}"
+                    class="card-img-top"></a>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'products:post_detail' post.pk %}">{{ post.title }}</a></h5>
+                <p class="card-text">{{ post.content }}</p>
+                <p>좋아요: {{ post.like_users.count }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 <h3>찜한 목록</h3>
 <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -44,4 +72,5 @@
     </div>
     {% endfor %}
 </div>
+
 {% endblock content %}

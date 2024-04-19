@@ -9,10 +9,12 @@ from django.views.decorators.http import require_POST
 def profile(request, username):
     profile = get_object_or_404(get_user_model(), username=username)
     posts = profile.like_posts.all()
+    my_posts = profile.posts.all()
     context = {
         'profile': profile,
         'posts' : posts,
         'username': username,
+        'my_posts': my_posts,
     }
     return render(request, 'users/profile.html', context)
 
