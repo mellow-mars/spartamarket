@@ -1,5 +1,12 @@
-<form action="{% url 'products:post_update' post.pk %}" method="POST" enctype="multipart/form-data">
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="box">
+<form action="{% url 'products:post_update' post.pk %}" method="POST" enctype="multipart/form-data" class='form-control'>
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">저장</button>
 </form>
+</div>
+{% endblock content %}
