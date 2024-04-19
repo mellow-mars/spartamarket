@@ -1,16 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<a href="{% url 'products:create' %}"><button>글 쓰기</button></a>
+<br><br>
+    
+<div class="navbar">
+<div>
+    <form action="{% url 'index' %}" method='GET'>
+        <select id="order" name="order">
+            <option value="recent" {% if order == 'recent' %} selected {% endif %}>최신</option>
+            <option value="popular" {% if order == 'popular' %} selected {% endif %}>인기</option>
+        </select>
+        <input type="submit" value='정렬'>
+    </form>
+</div>
+
+<div>
+    <form action="{% url 'products:search_results' %}" method="GET">
+        <input type="text" name="query" placeholder="검색어를 입력하세요...">
+        <button type="submit">검색</button>
+    </form>
+</div>
+
+<div>
+    <a href="{% url 'products:create' %}"><button>글 쓰기</button></a>
+</div>
+</div>
+
+
+
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for post in posts %}
     <div class="col">
-        <div class="card">
+        <div class="card" style="width: 100%;">
             {% if post.image %}
-            <a href="{% url 'products:post_detail' post.pk %}"><img src="{{ post.image.url }}" class="card-img-top"></a>
+            <a href="{% url 'products:post_detail' post.pk %}">
+                <img src="{{ post.image.url }}" class="card-img">
+            </a>
             {% else %}
-            <a href="{% url 'products:post_detail' post.pk %}"><img src="{% static 'images/product_default.png' %}"
-                    class="card-img-top"></a>
+            <a href="{% url 'products:post_detail' post.pk %}">
+                <img src="{% static 'images/product_default.png' %}" class="card-img">
+            </a>
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title"><a href="{% url 'products:post_detail' post.pk %}">{{ post.title }}</a></h5>
@@ -29,4 +58,5 @@
     </div>
     {% endfor %}
 </div>
+
 {% endblock content %}

@@ -1,11 +1,50 @@
-.navbar{
+.navbar {
     display: flex;
-    justify-content: center;
-    background-color: rgb(86, 105, 105);
+    justify-content: space-between;
+    align-items: center;
     height: 50px;
-    text-align: center;
+    width: 90vw;
+    margin: 0 auto;
+    display: flex;
+	align-items: center
 }
 
 img {
-    width: 200px;
+    max-width: 100%;
+    height: auto;
 }
+
+.card-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+body {
+    margin: 0 auto;
+    background-image: url('/static/images/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 51%;
+    margin: 0 auto;
+    color: black;
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
